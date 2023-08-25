@@ -2,16 +2,17 @@ import { BsThreeDots } from "react-icons/bs"
 
 interface HamburgerProps {
     items?: JSX.Element[],
-    onClick?: () => void
+    onClick?: () => void,
+    hamClass?: string,
 }
 
-function Hamburger({ items, onClick }: HamburgerProps) {
+function Hamburger({ items, onClick, hamClass }: HamburgerProps) {
     return (
         <div onClick={onClick}>
             <div className="dropdown dropdown-left">
                 <label tabIndex={0} className="btn border-0 bg-inherit hover:bg-inherit">
 
-                    <BsThreeDots className="text-base-100 cursor-pointer hover:text-base-300" size={25} />
+                    <BsThreeDots className={`text-base-100 cursor-pointer hover:text-base-300 ${hamClass}`} size={25} />
 
 
                 </label>

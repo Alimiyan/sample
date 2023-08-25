@@ -1,4 +1,3 @@
-import { on } from "events";
 import { useRef } from "react";
 
 interface ModalProps {
@@ -9,10 +8,10 @@ interface ModalProps {
     name: string | JSX.Element,
     customButton?: JSX.Element,
     customButton2?: JSX.Element,
-    customClick?: () => void
+    close?: boolean
 }
 
-function Modal({ children, customClass, modalClass, title, name, customButton, customButton2, customClick }: ModalProps) {
+function Modal({ children, customClass, modalClass, title, name, customButton, customButton2, close }: ModalProps) {
     const modalRef = useRef<HTMLDialogElement>(null);
 
     const openModal = () => {
@@ -21,25 +20,24 @@ function Modal({ children, customClass, modalClass, title, name, customButton, c
     const handleClick = () => {
         modalRef.current?.close()
     }
+   
+    
     return (
         <>
             <button className={`btn ${customClass}   normal-case `}
-                onClick={() => {
-                    openModal
-                    customClick
-                }}
+                onClick={openModal}
             >{name}</button>
             <dialog id="my_modal_5" className="modal" ref={modalRef}>
                 <form method="dialog" className={`modal-box ${modalClass}`}>
                     <h3 className={`font-bold p-2 ${modalClass ? "text-2xl" : "text-lg"}`}>{title}</h3>
                     {children}
                     <div className="modal-action">
-                        <button className="btn" onClick={() => handleClick}>Close</button>
+                        {close ? ("") : (<button className="btn" onClick={handleClick}>Close</button>)}
                         {customButton}
                         {customButton2}
                     </div>
                 </form>
-            </dialog>
+            </dialog >
         </>
     )
 }

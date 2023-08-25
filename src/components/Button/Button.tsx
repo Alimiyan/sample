@@ -1,6 +1,6 @@
 interface ButtonProps {
     children: string | JSX.Element,
-    bgColor: string,
+    bgColor?: string,
     customClass?: string,
     validate: () => void,
 }

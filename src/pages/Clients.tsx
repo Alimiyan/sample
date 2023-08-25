@@ -8,7 +8,7 @@ import { MdEmail } from 'react-icons/md'
 import Modal from "../components/Modal/Modal";
 import { BsThreeDots, BsPatchPlus, BsSearch } from "react-icons/bs"
 import InputBox from "../components/InputBox/InputBox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../components/Button/Button";
 import { PiSlidersLight } from 'react-icons/pi'
 import { data, headData } from "../utils/TableData"
@@ -30,16 +30,18 @@ function Clients({ theme }: themeProps) {
         { id: 1, content: "Pending verification Process" },
         { id: 2, content: "Had interaction on Monday" },
     ])
-    const [editNote, setEditNote] = useState<Note[]>(JSON.parse(JSON.stringify(notes)));
+    const [editNote, setEditNote] = useState<Note[]>(notes.map(note => ({ ...note })));
 
     const handleClick = () => { }
     const handleAddNotes = () => {
-        const newNote: Note = { id: notes.length + 1, content: addNote };
-        setNotes([...notes, newNote]);
+        const newNotes = [...notes, { id: notes.length + 1, content: addNote }]
+        setNotes(newNotes);
         setAddNote("");
     }
 
+ 
     
+
     return (
         <div className="flex justify-center flex-col p-8 h-full" data-theme={theme}>
             <div className="h-1/6">
@@ -137,7 +139,7 @@ function Clients({ theme }: themeProps) {
                                             <p className=" text-lg">
                                                 {note.content}
                                             </p>
-                                            <HamUtility note={note} state={notes} setState={setNotes} index={index} editNote={editNote} setEditNote={setEditNote}/>
+                                            <HamUtility note={note} state={notes} setState={setNotes} index={index} editNote={editNote} setEditNote={setEditNote} />
                                         </div>
                                     ))}
                                 </div>
